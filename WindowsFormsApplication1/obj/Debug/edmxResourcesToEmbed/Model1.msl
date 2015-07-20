@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="stepModelStoreContainer" CdmEntityContainer="stepEntities">
+    <EntitySetMapping Name="clients">
+      <EntityTypeMapping TypeName="IsTypeOf(stepModel.client)">
+        <MappingFragment StoreEntitySet="clients">
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="client_id" ColumnName="client_id" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="phonenumber" ColumnName="phonenumber" />
+          <ScalarProperty Name="housenumber" ColumnName="housenumber" />
+          <ScalarProperty Name="age" ColumnName="age" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="staff1">
+      <EntityTypeMapping TypeName="stepModel.staff1">
+        <MappingFragment StoreEntitySet="staff">
+          <ScalarProperty Name="a_level" ColumnName="a_level" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tests">
+      <EntityTypeMapping TypeName="stepModel.test">
+        <MappingFragment StoreEntitySet="test">
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="test_number" ColumnName="test_number" />
+          <ScalarProperty Name="fitnessrating" ColumnName="fitnessrating" />
+          <ScalarProperty Name="ac" ColumnName="ac" />
+          <ScalarProperty Name="max_hr_80" ColumnName="max_hr_80" />
+          <ScalarProperty Name="max_hr_50" ColumnName="max_hr_50" />
+          <ScalarProperty Name="max_hr" ColumnName="max_hr" />
+          <ScalarProperty Name="test_date" ColumnName="test_date" />
+          <ScalarProperty Name="client_id" ColumnName="client_id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="test_id" ColumnName="test_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

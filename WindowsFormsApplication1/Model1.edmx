@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="stepModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="stepModelStoreContainer">
+          <EntitySet Name="clients" EntityType="stepModel.Store.clients" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="staff" EntityType="stepModel.Store.staff" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="test" EntityType="stepModel.Store.test" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_test_clients" Association="stepModel.Store.FK_test_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="test" EntitySet="test" />
+          </AssociationSet>
+          <AssociationSet Name="FK_test_staff" Association="stepModel.Store.FK_test_staff">
+            <End Role="staff" EntitySet="staff" />
+            <End Role="test" EntitySet="test" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="clients">
+          <Key>
+            <PropertyRef Name="client_id" />
+          </Key>
+          <Property Name="client_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="nvarchar" MaxLength="50" />
+          <Property Name="lastname" Type="nvarchar" MaxLength="50" />
+          <Property Name="phonenumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="housenumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="age" Type="int" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="6" />
+        </EntityType>
+        <EntityType Name="staff">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="a_level" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="test">
+          <Key>
+            <PropertyRef Name="test_id" />
+          </Key>
+          <Property Name="test_id" Type="int" Nullable="false" />
+          <Property Name="username" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="test_date" Type="nvarchar" MaxLength="50" />
+          <Property Name="max_hr" Type="int" />
+          <Property Name="max_hr_50" Type="int" />
+          <Property Name="max_hr_80" Type="int" />
+          <Property Name="ac" Type="decimal" />
+          <Property Name="fitnessrating" Type="nvarchar" MaxLength="50" />
+          <Property Name="test_number" Type="int" Nullable="false" />
+          <Property Name="notes" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <Association Name="FK_test_clients">
+          <End Role="clients" Type="stepModel.Store.clients" Multiplicity="1" />
+          <End Role="test" Type="stepModel.Store.test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="client_id" />
+            </Principal>
+            <Dependent Role="test">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_test_staff">
+          <End Role="staff" Type="stepModel.Store.staff" Multiplicity="1" />
+          <End Role="test" Type="stepModel.Store.test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="staff">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="test">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="stepModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="stepEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="clients" EntityType="stepModel.client" />
+          <EntitySet Name="staff1" EntityType="stepModel.staff1" />
+          <EntitySet Name="tests" EntityType="stepModel.test" />
+          <AssociationSet Name="FK_test_clients" Association="stepModel.FK_test_clients">
+            <End Role="client" EntitySet="clients" />
+            <End Role="test" EntitySet="tests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_test_staff" Association="stepModel.FK_test_staff">
+            <End Role="staff1" EntitySet="staff1" />
+            <End Role="test" EntitySet="tests" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="client_id" />
+          </Key>
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="firstname" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="lastname" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="phonenumber" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="housenumber" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Type="Int32" Name="age" />
+          <Property Type="String" Name="Gender" MaxLength="6" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tests" Relationship="stepModel.FK_test_clients" FromRole="client" ToRole="test" />
+        </EntityType>
+        <EntityType Name="staff1">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Type="String" Name="username" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="password" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="a_level" Nullable="false" />
+          <NavigationProperty Name="tests" Relationship="stepModel.FK_test_staff" FromRole="staff1" ToRole="test" />
+        </EntityType>
+        <EntityType Name="test">
+          <Key>
+            <PropertyRef Name="test_id" />
+          </Key>
+          <Property Type="Int32" Name="test_id" Nullable="false" />
+          <Property Type="String" Name="username" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="client_id" Nullable="false" />
+          <Property Type="String" Name="test_date" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="max_hr" />
+          <Property Type="Int32" Name="max_hr_50" />
+          <Property Type="Int32" Name="max_hr_80" />
+          <Property Type="Decimal" Name="ac" Precision="18" Scale="0" />
+          <Property Type="String" Name="fitnessrating" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="test_number" Nullable="false" />
+          <Property Type="String" Name="notes" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="client" Relationship="stepModel.FK_test_clients" FromRole="test" ToRole="client" />
+          <NavigationProperty Name="staff" Relationship="stepModel.FK_test_staff" FromRole="test" ToRole="staff1" />
+        </EntityType>
+        <Association Name="FK_test_clients">
+          <End Type="stepModel.client" Role="client" Multiplicity="1" />
+          <End Type="stepModel.test" Role="test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="client_id" />
+            </Principal>
+            <Dependent Role="test">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_test_staff">
+          <End Type="stepModel.staff1" Role="staff1" Multiplicity="1" />
+          <End Type="stepModel.test" Role="test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="staff1">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="test">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="stepModelStoreContainer" CdmEntityContainer="stepEntities">
+    <EntitySetMapping Name="clients">
+      <EntityTypeMapping TypeName="IsTypeOf(stepModel.client)">
+        <MappingFragment StoreEntitySet="clients">
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="phonenumber" ColumnName="phonenumber" />
+          <ScalarProperty Name="housenumber" ColumnName="housenumber" />
+          <ScalarProperty Name="age" ColumnName="age" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+          <EntitySetMapping Name="staff1">
+            <EntityTypeMapping TypeName="stepModel.staff1">
+              <MappingFragment StoreEntitySet="staff">
+                <ScalarProperty Name="a_level" ColumnName="a_level" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tests">
+            <EntityTypeMapping TypeName="stepModel.test">
+              <MappingFragment StoreEntitySet="test">
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="test_number" ColumnName="test_number" />
+                <ScalarProperty Name="fitnessrating" ColumnName="fitnessrating" />
+                <ScalarProperty Name="ac" ColumnName="ac" />
+                <ScalarProperty Name="max_hr_80" ColumnName="max_hr_80" />
+                <ScalarProperty Name="max_hr_50" ColumnName="max_hr_50" />
+                <ScalarProperty Name="max_hr" ColumnName="max_hr" />
+                <ScalarProperty Name="test_date" ColumnName="test_date" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="test_id" ColumnName="test_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

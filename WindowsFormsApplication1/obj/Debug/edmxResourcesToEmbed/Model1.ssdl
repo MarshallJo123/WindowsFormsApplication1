@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="stepModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="stepModelStoreContainer">
+    <EntitySet Name="clients" EntityType="stepModel.Store.clients" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="staff" EntityType="stepModel.Store.staff" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="test" EntityType="stepModel.Store.test" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_test_clients" Association="stepModel.Store.FK_test_clients">
+      <End Role="clients" EntitySet="clients" />
+      <End Role="test" EntitySet="test" />
+    </AssociationSet>
+    <AssociationSet Name="FK_test_staff" Association="stepModel.Store.FK_test_staff">
+      <End Role="staff" EntitySet="staff" />
+      <End Role="test" EntitySet="test" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="clients">
+    <Key>
+      <PropertyRef Name="client_id" />
+    </Key>
+    <Property Name="client_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="firstname" Type="nvarchar" MaxLength="50" />
+    <Property Name="lastname" Type="nvarchar" MaxLength="50" />
+    <Property Name="phonenumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="housenumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="age" Type="int" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="6" />
+  </EntityType>
+  <EntityType Name="staff">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="a_level" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="test">
+    <Key>
+      <PropertyRef Name="test_id" />
+    </Key>
+    <Property Name="test_id" Type="int" Nullable="false" />
+    <Property Name="username" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="client_id" Type="int" Nullable="false" />
+    <Property Name="test_date" Type="nvarchar" MaxLength="50" />
+    <Property Name="max_hr" Type="int" />
+    <Property Name="max_hr_50" Type="int" />
+    <Property Name="max_hr_80" Type="int" />
+    <Property Name="ac" Type="decimal" />
+    <Property Name="fitnessrating" Type="nvarchar" MaxLength="50" />
+    <Property Name="test_number" Type="int" Nullable="false" />
+    <Property Name="notes" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <Association Name="FK_test_clients">
+    <End Role="clients" Type="stepModel.Store.clients" Multiplicity="1" />
+    <End Role="test" Type="stepModel.Store.test" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clients">
+        <PropertyRef Name="client_id" />
+      </Principal>
+      <Dependent Role="test">
+        <PropertyRef Name="client_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_test_staff">
+    <End Role="staff" Type="stepModel.Store.staff" Multiplicity="1" />
+    <End Role="test" Type="stepModel.Store.test" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="staff">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="test">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
